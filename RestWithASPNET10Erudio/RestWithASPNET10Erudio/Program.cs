@@ -1,8 +1,13 @@
+using RestWithASPNET10Erudio.Configurations;
+using RestWithASPNET10Erudio.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDatabaseConfiguration(builder.Configuration);
+builder.Services.AddScoped<IPersonService, PersonService>();
 
 var app = builder.Build();
 

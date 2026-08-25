@@ -4,30 +4,36 @@ namespace RestWithASPNET10Erudio.Service
 {
 	public class PersonService: IPersonService
 	{
-		private List<Person> people;
-
-		public PersonService()
+		private MSSQLContext _context;
+		public PersonService(MSSQLContext context)
 		{
-			this.people = new List<Person>();
+			_context = context;
 		}
 
-		public List<Person> GetAll() => people;
+		public List<Person> GetAll() => _context.Persons.ToList();
 
-		public Person GetById(Guid id) => people.FirstOrDefault(person => person.Id == id);
+		public Person GetById(Guid id) => _context.Persons.FirstOrDefault(person => person.Id == id);
 
-		public void Create(Person person) => people.Add(person);
+		public void Create(Person person)
+		{
+			_context.Persons.Add(person);
+			_context.SaveChanges();
+		}
 
 		public void Update(Person person)
 		{
-			var index = people.FindIndex(x => x.Id == person.Id);
-			if (index >= 0)
-				people[index] = person;
+			var existingPerson = _context.Persons.Find(person.Id);
+			if (existingPerson == null) return ;
+
+			_context.Entry(existingPerson).CurrentValues.SetValues(person);
+			_context.SaveChanges();
 		}
 
 		public void Delete(Guid id) {
-			var person = GetById(id);
-			if (person != null)
-				people.Remove(person);
+			var existingPerson = _context.Persons.Find(id);
+			if (existingPerson == null) return;
+			_context.Remove(existingPerson);
+			_context.SaveChanges();
 		}
 	}
 }
