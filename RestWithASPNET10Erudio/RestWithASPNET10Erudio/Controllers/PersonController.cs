@@ -8,43 +8,183 @@ namespace RestWithASPNET10Erudio.Controllers
 	[Route("[controller]")]
 	public class PersonController : ControllerBase
 	{
-		public IPersonService _personService { get; }
+		private readonly IPersonService _personService;
+		private readonly ILogger<PersonController> _logger;
 
-		public PersonController(IPersonService personService)
+		public PersonController(
+			IPersonService personService,
+			ILogger<PersonController> logger)
 		{
 			_personService = personService;
+			_logger = logger;
 		}
 
 		[HttpGet]
-		public IEnumerable<Person> GetAll()
+		public IActionResult GetAll()
 		{
-			return _personService.GetAll();
+			try
+			{
+				_logger.LogInformation(
+					"GET /Person started. StatusCode: {StatusCode}",
+					StatusCodes.Status200OK);
+
+				var people = _personService.GetAll();
+
+				_logger.LogInformation(
+					"GET /Person completed successfully. StatusCode: {StatusCode}",
+					StatusCodes.Status200OK);
+
+				return Ok(people);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(
+					ex,
+					"GET /Person failed. StatusCode: {StatusCode}",
+					StatusCodes.Status500InternalServerError);
+
+				return StatusCode(
+					StatusCodes.Status500InternalServerError,
+					"An unexpected error occurred while retrieving people.");
+			}
 		}
 
 		[HttpGet("{id}")]
-		public Person GetById(Guid id)
+		public IActionResult GetById(Guid id)
 		{
-			return _personService.GetById(id);
+			try
+			{
+				_logger.LogInformation(
+					"GET /Person/{PersonId} started.",
+					id);
+
+				var person = _personService.GetById(id);
+
+				if (person == null)
+				{
+					_logger.LogWarning(
+						"Person not found. PersonId: {PersonId}. StatusCode: {StatusCode}",
+						id,
+						StatusCodes.Status404NotFound);
+
+					return NotFound();
+				}
+
+				_logger.LogInformation(
+					"GET /Person/{PersonId} completed successfully. StatusCode: {StatusCode}",
+					id,
+					StatusCodes.Status200OK);
+
+				return Ok(person);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(
+					ex,
+					"GET /Person/{PersonId} failed. StatusCode: {StatusCode}",
+					id,
+					StatusCodes.Status500InternalServerError);
+
+				return StatusCode(
+					StatusCodes.Status500InternalServerError,
+					"An unexpected error occurred while retrieving the person.");
+			}
 		}
 
 		[HttpPost]
-		public void Create([FromBody] Person person)
+		public IActionResult Create([FromBody] Person person)
 		{
-			_personService.Create(person);
-		}
+			try
+			{
+				_logger.LogInformation(
+					"POST /Person started.");
 
+				_personService.Create(person);
+
+				_logger.LogInformation(
+					"Person created successfully. PersonId: {PersonId}. StatusCode: {StatusCode}",
+					person.Id,
+					StatusCodes.Status201Created);
+
+				return StatusCode(
+					StatusCodes.Status201Created,
+					person);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(
+					ex,
+					"POST /Person failed. StatusCode: {StatusCode}",
+					StatusCodes.Status500InternalServerError);
+
+				return StatusCode(
+					StatusCodes.Status500InternalServerError,
+					"An unexpected error occurred while creating the person.");
+			}
+		}
 
 		[HttpPut]
-		public void Update([FromBody] Person person)
+		public IActionResult Update([FromBody] Person person)
 		{
-			_personService.Update(person);
+			try
+			{
+				_logger.LogInformation(
+					"PUT /Person started. PersonId: {PersonId}",
+					person.Id);
+
+				_personService.Update(person);
+
+				_logger.LogInformation(
+					"Person updated successfully. PersonId: {PersonId}. StatusCode: {StatusCode}",
+					person.Id,
+					StatusCodes.Status200OK);
+
+				return Ok(person);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(
+					ex,
+					"PUT /Person failed. PersonId: {PersonId}. StatusCode: {StatusCode}",
+					person.Id,
+					StatusCodes.Status500InternalServerError);
+
+				return StatusCode(
+					StatusCodes.Status500InternalServerError,
+					"An unexpected error occurred while updating the person.");
+			}
 		}
 
-
 		[HttpDelete("{id}")]
-		public void Delete(Guid id)
+		public IActionResult Delete(Guid id)
 		{
-			_personService.Delete(id);
+			try
+			{
+				_logger.LogInformation(
+					"DELETE /Person/{PersonId} started.",
+					id);
+
+				_personService.Delete(id);
+
+				_logger.LogInformation(
+					"Person deleted successfully. PersonId: {PersonId}. StatusCode: {StatusCode}",
+					id,
+					StatusCodes.Status200OK);
+
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(
+					ex,
+					"DELETE /Person/{PersonId} failed. StatusCode: {StatusCode}",
+					id,
+					StatusCodes.Status500InternalServerError);
+
+				return StatusCode(
+					StatusCodes.Status500InternalServerError,
+					"An unexpected error occurred while deleting the person.");
+			}
 		}
 	}
 }

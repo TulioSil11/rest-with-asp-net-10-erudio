@@ -3,7 +3,7 @@ using RestWithASPNET10Erudio.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.AddSerilogLogging();
 
 builder.Services.AddControllers();
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
