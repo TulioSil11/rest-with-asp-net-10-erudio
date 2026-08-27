@@ -1,4 +1,5 @@
 using RestWithASPNET10Erudio.Configurations;
+using RestWithASPNET10Erudio.Repositories;
 using RestWithASPNET10Erudio.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.AddSerilogLogging();
 builder.Services.AddControllers();
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 var app = builder.Build();
 
