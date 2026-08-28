@@ -1,13 +1,13 @@
 ﻿using RestWithASPNET10Erudio.Models;
-using RestWithASPNET10Erudio.Repositories;
+using RestWithASPNET10Erudio.Repositories.Interfaces;
 
 namespace RestWithASPNET10Erudio.Service
 {
 	public class PersonService: IPersonService
 	{
-		public IPersonRepository _personRepository { get; }
+		public IRepository<Person> _personRepository { get; }
 
-		public PersonService(IPersonRepository personRepository)
+		public PersonService(IRepository<Person> personRepository)
 		{
 			_personRepository = personRepository;
 		}

@@ -1,5 +1,7 @@
 using RestWithASPNET10Erudio.Configurations;
+using RestWithASPNET10Erudio.Models;
 using RestWithASPNET10Erudio.Repositories;
+using RestWithASPNET10Erudio.Repositories.Interfaces;
 using RestWithASPNET10Erudio.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddEvolveConfiguration(builder.Configuration, builder.Environment);
 builder.Services.AddScoped<IPersonService, PersonService>();
-builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
