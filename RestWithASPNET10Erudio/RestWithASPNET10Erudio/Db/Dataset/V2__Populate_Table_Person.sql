@@ -1,0 +1,22 @@
+INSERT INTO dbo.person (first_name, last_name, address, gender)
+VALUES
+    ('João', 'Silva', 'Rua das Flores, 123', 'Male'),
+    ('Maria', 'Santos', 'Av. Brasil, 456', 'Female'),
+    ('Carlos', 'Oliveira', 'Rua Minas Gerais, 789', 'Male'),
+    ('Ana', 'Souza', 'Rua Bahia, 321', 'Female'),
+    ('Pedro', 'Costa', 'Av. Amazonas, 654', 'Male'),
+    ('Juliana', 'Pereira', 'Rua São Paulo, 987', 'Female'),
+    ('Lucas', 'Almeida', 'Rua Goiás, 147', 'Male'),
+    ('Camila', 'Ribeiro', 'Av. Afonso Pena, 258', 'Female'),
+    ('Rafael', 'Martins', 'Rua Ceará, 369', 'Male'),
+    ('Fernanda', 'Carvalho', 'Rua Paraná, 741', 'Female'),
+    ('Gabriel', 'Gomes', 'Av. Amazonas, 852', 'Male'),
+    ('Beatriz', 'Lima', 'Rua Bahia, 963', 'Female'),
+    ('Daniel', 'Rocha', 'Rua Espírito Santo, 159', 'Male'),
+    ('Larissa', 'Teixeira', 'Av. Brasil, 753', 'Female'),
+    ('Bruno', 'Moreira', 'Rua Pernambuco, 456', 'Male'),
+    ('Amanda', 'Barbosa', 'Rua Alagoas, 852', 'Female'),
+    ('Felipe', 'Nunes', 'Av. Contorno, 369', 'Male'),
+    ('Mariana', 'Mendes', 'Rua Paraíba, 951', 'Female'),
+    ('Thiago', 'Freitas', 'Rua Maranhão, 357', 'Male'),
+    ('Isabela', 'Cardoso', 'Av. Getúlio Vargas, 258', 'Female');
