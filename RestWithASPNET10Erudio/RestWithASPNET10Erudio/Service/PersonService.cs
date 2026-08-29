@@ -1,4 +1,6 @@
-﻿using RestWithASPNET10Erudio.Models;
+﻿using Mapster;
+using RestWithASPNET10Erudio.Models;
+using RestWithASPNET10Erudio.Models.DTOs;
 using RestWithASPNET10Erudio.Repositories.Interfaces;
 
 namespace RestWithASPNET10Erudio.Service
@@ -12,18 +14,18 @@ namespace RestWithASPNET10Erudio.Service
 			_personRepository = personRepository;
 		}
 
-		public List<Person> GetAll() => _personRepository.GetAll();
+		public List<PersonDTO> GetAll() => _personRepository.GetAll().Adapt<List<PersonDTO>>();
 
-		public Person GetById(Guid id) => _personRepository.GetById(id);
+		public PersonDTO GetById(Guid id) => _personRepository.GetById(id).Adapt<PersonDTO>();
 
-		public void Create(Person person)
+		public void Create(PersonDTO person)
 		{
-			_personRepository.Create(person);
+			_personRepository.Create(person.Adapt<Person>());
 		}
 
-		public void Update(Person person)
+		public void Update(PersonDTO person)
 		{
-			_personRepository.Update(person);
+			_personRepository.Update(person.Adapt<Person>());
 		}
 
 		public void Delete(Guid id) {

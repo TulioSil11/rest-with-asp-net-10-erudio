@@ -1,16 +1,17 @@
 ﻿using RestWithASPNET10Erudio.Models;
+using RestWithASPNET10Erudio.Models.DTOs;
 
 namespace RestWithASPNET10Erudio.Service
 {
 	public interface IPersonService
 	{
-		List<Person> GetAll();
+		List<PersonDTO> GetAll();
 
-		Person GetById(Guid id);
+		PersonDTO GetById(Guid id);
 
-		void Create(Person person);
+		void Create(PersonDTO person);
 
-		void Update(Person person);
+		void Update(PersonDTO person);
 
 		void Delete(Guid id);
 	}
