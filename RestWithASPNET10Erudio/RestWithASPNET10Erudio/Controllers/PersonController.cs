@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET10Erudio.Models;
+using RestWithASPNET10Erudio.Models.DTOs;
 using RestWithASPNET10Erudio.Service;
 
 namespace RestWithASPNET10Erudio.Controllers
@@ -92,7 +93,7 @@ namespace RestWithASPNET10Erudio.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create([FromBody] Person person)
+		public IActionResult Create([FromBody] PersonDTO person)
 		{
 			try
 			{
@@ -124,7 +125,7 @@ namespace RestWithASPNET10Erudio.Controllers
 		}
 
 		[HttpPut]
-		public IActionResult Update([FromBody] Person person)
+		public IActionResult Update([FromBody] PersonDTO person)
 		{
 			try
 			{
