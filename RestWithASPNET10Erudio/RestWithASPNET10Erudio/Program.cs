@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilogLogging();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddContentNegotiation();
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddEvolveConfiguration(builder.Configuration, builder.Environment);
 builder.Services.AddScoped<IPersonService, PersonService>();
