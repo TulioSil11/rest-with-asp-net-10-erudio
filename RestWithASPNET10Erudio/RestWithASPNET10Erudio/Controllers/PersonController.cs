@@ -21,6 +21,8 @@ namespace RestWithASPNET10Erudio.Controllers
 		}
 
 		[HttpGet]
+		[ProducesResponseType(200, Type = typeof(List<PersonDTO>))]
+		[ProducesResponseType(500)]
 		public IActionResult GetAll()
 		{
 			try
@@ -51,6 +53,9 @@ namespace RestWithASPNET10Erudio.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[ProducesResponseType(200, Type = typeof(PersonDTO))]
+		[ProducesResponseType(500)]
+		[ProducesResponseType(404)]
 		public IActionResult GetById(Guid id)
 		{
 			try
@@ -93,6 +98,8 @@ namespace RestWithASPNET10Erudio.Controllers
 		}
 
 		[HttpPost]
+		[ProducesResponseType(201, Type = typeof(PersonDTO))]
+		[ProducesResponseType(500)]
 		public IActionResult Create([FromBody] PersonDTO person)
 		{
 			try
@@ -125,6 +132,8 @@ namespace RestWithASPNET10Erudio.Controllers
 		}
 
 		[HttpPut]
+		[ProducesResponseType(200, Type = typeof(PersonDTO))]
+		[ProducesResponseType(500)]
 		public IActionResult Update([FromBody] PersonDTO person)
 		{
 			try
@@ -157,6 +166,8 @@ namespace RestWithASPNET10Erudio.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[ProducesResponseType(200, Type = typeof(PersonDTO))]
+		[ProducesResponseType(500)]
 		public IActionResult Delete(Guid id)
 		{
 			try

@@ -9,10 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddSerilogLogging();
 
 builder.Services.AddControllers().AddContentNegotiation();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddOpenAPIConfig();
+builder.Services.AddSwaggerConfig();
+builder.Services.AddRouteConfig();
+
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddEvolveConfiguration(builder.Configuration, builder.Environment);
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+
 
 var app = builder.Build();
 
@@ -23,5 +29,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseSwaggerSpecification();
 
 app.Run();
